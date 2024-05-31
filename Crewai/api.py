@@ -10,7 +10,7 @@ from job_manager import append_event, jobs , jobs_lock , Event
 app = Flask(__name__)
 
 def kickoff_crew(job_id:str, input:str):
-    print(f"Running crew for {job_id} with the input given {input}")
+    print(f"""Running crew for {job_id} with the input given {input}""")
 
     # Setup The Crew Here
     results = None
@@ -19,8 +19,8 @@ def kickoff_crew(job_id:str, input:str):
         textprocessingCrew.setup_crew(input)
         results = textprocessingCrew.kickoff()
     except Exception as  e:
-        print(f"CREW FAILED : {str(e)}")
-        append_event(job_id, f"CREW FAILED:{str(e)}")
+        print(f"""CREW FAILED : {str(e)}""")
+        append_event(job_id, f"""CREW FAILED:{str(e)}""")
         with jobs_lock:
             jobs[job_id].status = "ERROR"
             jobs[job_id].result = str(e)
@@ -71,4 +71,4 @@ def get_status(job_id):
     }) , 200
 
 if __name__ == '__main__':
-    app.run(debug=True,port=3001)
+    app.run(debug=True,port=3003)

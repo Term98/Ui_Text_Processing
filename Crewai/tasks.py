@@ -13,7 +13,7 @@ class Text_Processing_Task():
     def append_event_callback(self, task_output):
         append_event(self.job_id, task_output.exported_output)
         
-    def Clean_and_Normalize_Text_Tasks(agent):
+    def Clean_and_Normalize_Text_Tasks(self,agent):
         return Task(
             description=dedent(f"""\
 				Removes irrelevant characters, corrects formatting inconsistencies, and standardizes the text. 
@@ -40,7 +40,7 @@ class Text_Processing_Task():
 				Distinguishes between different types of entities (e.g., names of people, places, organizations)."""),
 			agent=agent
 		)
-    def Perform_Web_Search_task(agent):
+    def Perform_Web_Search_task(self,agent):
         return Task(
             description=dedent(f"""\
 			Uses the extracted keywords and entities to search for relevant information online.
@@ -61,7 +61,7 @@ class Text_Processing_Task():
             Named entities (e.g., people, organizations) identified in the content."""),
 			agent=agent
 		)
-    def content_expansion_task(agent):
+    def content_expansion_task(self,agent):
         return Task(
             description=dedent(f"""\
 			Adds details, explanations, and examples to the input text.
@@ -73,7 +73,7 @@ class Text_Processing_Task():
 			The revised text should be ready for further processing or publication, maintaining the quality and integrity of the original content."""),
 			agent=agent
 		)
-    def quality_assurance_task(agent):
+    def quality_assurance_task(self,agent):
         return Task(
             description=dedent(f"""\
 			Adds details, explanations, and examples to the input text.
@@ -89,7 +89,7 @@ class Text_Processing_Task():
 			"""),
 			agent=agent
 		)
-    def final_assembly_task(agent):
+    def final_assembly_task(self,agent):
         return Task(
             description=dedent(f"""\
 			Combines the processed content into a single document.

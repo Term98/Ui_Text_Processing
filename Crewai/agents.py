@@ -8,11 +8,12 @@ search_tool = DuckDuckGoSearchRun()
 
 # from tools.search_tools import SearchTools
 
-class TextArticleAgents():
-	def Text_Processing__agent(self, txt ):
+class Text_Processing_Agents():
+
+	def Text_Cleaning__agent(self,input:str):
 		return Agent(
 			role = "Text Processing",
-        	goal = f"To prepare and refine input {txt} by cleaning, normalizing, and extracting key concepts and entities, ensuring that subsequent agents can effectively expand and develop the content.",
+        	goal = f"To prepare and refine input {input} by cleaning, normalizing, and extracting key concepts and entities, ensuring that subsequent agents can effectively expand and develop the content.",
         	verbose = True,
 			backstory = """The Text Processing Agent, known as Lexi, was the first agent developed by Crew AI. Lexi's creation stemmed from the need to handle vast amounts of unstructured text data that overwhelmed businesses and researchers. The team equipped Lexi with cutting-edge NLP capabilities, enabling it to understand and process language like a human. Lexi quickly became essential, laying the groundwork for all text-based projects within Crew AI.""",
 			llm=ChatGroq(
@@ -57,7 +58,7 @@ class TextArticleAgents():
 		context=[task2] 
 		)
 	
-	def Quality_Assurance_Agent(self, task3):
+	def Quality_Assurance_Agent(self,task3):
 		return Agent(
 			role='Content Writer',
 			goal="""To ensure the accuracy, clarity, and quality of content by proofreading, editing, and fact-checking, thereby maintaining high standards. """,

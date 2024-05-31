@@ -1,6 +1,6 @@
 from job_manager import append_event
 from tasks import Text_Processing_Task
-from agents import TextArticleAgents
+from agents import Text_Processing_Agents
 from crewai import Crew
 
 
@@ -10,15 +10,15 @@ class TextProcessingCrew:
         self.crew = None
     
     def setup_crew(self,input:str):
-
         print (
-            f"Setting Up Crew For {self.job_id} with Text Inputed{input}"
+            f"Setting Up Crew For {self.job_id} with Text Inputed {input}"
         )
+        agents = Text_Processing_Agents()
         tasks = Text_Processing_Task(job_id=self.job_id)
-        agents = TextArticleAgents()
+        
 
         # Create And Setup Agents
-        TextProcessingAgents = agents. Text_Processing__agent(input)
+        TextProcessingAgents = agents.Text_Cleaning__agent(input)
         Research_agent = agents.Research_agent(TextProcessingAgents)
         Content_Generation_agent = agents.Content_Generation_agent(Research_agent)
         Quality_Assurance_Agent = agents.Quality_Assurance_Agent(Content_Generation_agent)
@@ -26,7 +26,7 @@ class TextProcessingCrew:
 
 
         # Create And Setup Tasks
-        Clean_and_Normalize_Text_Tasks =tasks.Clean_and_Normalize_Text_Tasks(TextArticleAgents)
+        Clean_and_Normalize_Text_Tasks = tasks.Clean_and_Normalize_Text_Tasks(TextProcessingAgents)
         Perform_Web_Search_task = tasks.Perform_Web_Search_task(Research_agent)
         Content_Expansion_Task = tasks.content_expansion_task(Content_Generation_agent)
         quality_assurance_task = tasks.quality_assurance_task(Quality_Assurance_Agent)
@@ -58,12 +58,12 @@ class TextProcessingCrew:
         
         append_event(self.job_id, "CREW STARTED")
         try:
-            print (f"Running crew for {self
-                                       .job_id}")
+            print (f"""Running crew for {self
+                                       .job_id}""")
             results = self.crew.kickoff()
             append_event(self.job_id,"Crew Completed")
             return results
         
         except Exception as e:
-            append_event(self.job_id, f"An error occurred: {e}")
+            append_event(self.job_id, f"""An error occurred: {e}""")
             return str(e)
